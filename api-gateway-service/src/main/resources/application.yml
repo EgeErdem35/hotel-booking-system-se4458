@@ -1,0 +1,25 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  application:
+    name: api-gateway-service
+
+app:
+  services:
+    hotel-admin-url: ${HOTEL_ADMIN_SERVICE_URL:http://localhost:8081}
+    hotel-search-url: ${HOTEL_SEARCH_SERVICE_URL:http://localhost:8082}
+    booking-url: ${BOOKING_SERVICE_URL:http://localhost:8083}
+    comments-url: ${COMMENTS_SERVICE_URL:http://localhost:8084}
+    notification-url: ${NOTIFICATION_SERVICE_URL:http://localhost:8085}
+    ai-agent-url: ${AI_AGENT_SERVICE_URL:http://localhost:8086}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html

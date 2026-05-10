@@ -1,0 +1,16 @@
+server:
+  port: ${SERVER_PORT:8084}
+
+spring:
+  application:
+    name: comments-service
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html

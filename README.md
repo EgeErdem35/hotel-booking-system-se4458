@@ -6,8 +6,6 @@ This repository contains a service-oriented Hotel Booking System similar to Hote
 
 ## Final URLs
 
-Update these values after cloud deployment:
-
 | Component | URL |
 | --- | --- |
 | Frontend | `https://main.db41rjk85z4bx.amplifyapp.com/` |
@@ -15,6 +13,16 @@ Update these values after cloud deployment:
 | Swagger / API Gateway | `http://api-gateway-service-env.eba-tbq9cyca.eu-north-1.elasticbeanstalk.com/swagger-ui.html` |
 | Demo video | `https://youtu.be/viqAJv2LZ-E` |
 | Public GitHub repository | `https://github.com/EgeErdem35/hotel-booking-system-se4458` |
+
+Live Elastic Beanstalk services:
+
+| Service | URL |
+| --- | --- |
+| Hotel Admin Service | `http://hotel-admin-se4458.eu-north-1.elasticbeanstalk.com` |
+| Hotel Search Service | `http://hotel-search-se4458.eu-north-1.elasticbeanstalk.com` |
+| Booking Service | `http://booking-se4458.eu-north-1.elasticbeanstalk.com` |
+| Comments Service | `http://comments-service-5-env.eba-hcsp5uaj.eu-north-1.elasticbeanstalk.com` |
+| API Gateway Service | `http://api-gateway-service-env.eba-tbq9cyca.eu-north-1.elasticbeanstalk.com` |
 
 Local development URLs:
 

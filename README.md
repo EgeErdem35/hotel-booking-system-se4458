@@ -13,7 +13,7 @@ Update these values after cloud deployment:
 | Frontend | `https://main.db41rjk85z4bx.amplifyapp.com/` |
 | API Gateway | `https://0mb94xtp8g.execute-api.eu-north-1.amazonaws.com` |
 | Swagger / API Gateway | `http://api-gateway-service-env.eba-tbq9cyca.eu-north-1.elasticbeanstalk.com/swagger-ui.html` |
-| Demo video | `TBD` |
+| Demo video | `https://youtu.be/viqAJv2LZ-E` |
 | Public GitHub repository | `https://github.com/EgeErdem35/hotel-booking-system-se4458` |
 
 Local development URLs:

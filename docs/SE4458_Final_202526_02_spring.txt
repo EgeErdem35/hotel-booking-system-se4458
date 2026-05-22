@@ -1,0 +1,372 @@
+           May, 2026 
+SE 4458 Software Architecture & Design of Modern Large Scale Systems 
+- Final          
+Group 1: Create a Hotel Booking System 
+Create a hotel booking system like Hotels.com. Implement Below are use cases for functional 
+and non-functional requirements. 
+ 
+HOTEL ADMIN SERVICE 
+ 
+- Admins for hotels can add/update rooms for availability between start and end dates 
+- Image uploading is not necessary but nice-to-have 
+- THIS WILL BE AN AUTHENTICATED SERVICE 
+ 
+ 
+HOTEL SEARCH SERVICE 
+ 
+ 
+ 
+- User can search hotels by destination point, dates and number of people. Only rooms that admins 
+specified as vacant will appear in results for given dates 
+- Client who login to application will see 15% discounted prices.  
+- ‘Haritada goster’ is required to show hotels that have been searched 
+ 
+ 
+BOOK HOTEL SERVICE 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+- On hotel detail page, user can book the hotel. Capacity of the hotel needs to be decreased 
+for specified dates 
+- NO transaction needed for payment 
+ 
+HOTEL COMMENTS SERVICE 
+ 
+- On clicking of comments, a graphs that shows distribution of comments per service will 
+be shown along with comments and ratings 
+ 
+ 
+ 
+NOTIFICATION SERVICE 
+- write a nightly scheduled task  
+o to go over all hotel capacities and notify hotel administrators when it is below 
+20% for the next month. 
+o to pull new hotel reservations from the queue and send them a message about 
+reservation details 
+ 
+AI AGENT SERVICE 
+Implement AI agent chat window in main application screen that will use APIs you created to perform 
+search and booking use cases 
+躽躾躿軀 You: I'd like to book a hotel in Rome from July 15 to July 18 for two adults. 
+뱅뱆뱇뱈뱉뱊뱋뱌 AI: Great! Any preferences for hotel rating, price range, or amenities? 
+躽躾躿軀 You: 4+ stars, breakfast, and a pool would be ideal. 
+뱅뱆뱇뱈뱉뱊뱋뱌 AI: Got it! Here are a few options you might like 踘踚踛踜踙 
+謢謣謪謤謫謬謭謮謯謥謰謱謲謳謴謦謵謧謨謩 Hotel Roma Plaza 
+ 궼궾궽 City Centre 
+  4.5 | 괭괮 $210/night 
+ 膆 Free Wi-Fi, Breakfast, Pool 
+ 꼑꼒 [Reserve Room] 
+謢謣謪謤謫謬謭謮謯謥謰謱謲謳謴謦謵謧謨謩 Grand Hotel 
+ 궼궾궽 Monti 
+  4.3 | 괭괮 $250/night 
+ 膆 Free Wi-Fi, Breakfast, Pool 
+ 꼑꼒 [Reserve Room 
+ 
+뱅뱆뱇뱈뱉뱊뱋뱌 AI: Would you like to confirm your reservation at Hotel Roma Plaza from July 15–18 for 2 adults? 
+꼑꼒 Yes, book it 
+ 
+NON-FUNCTIONAL REQUIREMENTS 
+ 
+o 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+- Comments will be stored in a separate No SQL DB 
+- Hotel details will be stored in a separate distributed cache like Redis 
+ 
+Students 
+Batuhan Salcan 
+Mustafa Berkay Duzenli 
+Batikan Akdeniz 
+Cenk Serbest 
+Toprak Orman 
+Ilayda Gun 
+Demir Demirdogen 
+Aycan Kurt 
+Ayfernaz Baygin 
+ SÜMEYYE ŞENCAN 
+ BEGÜM BAL 
+ EREN KARCI 
+ BARIŞ HANSU 
+Idil Balandi 
+Berk Ates 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Admin Client   
+ Hotel
+Service   
+-  Client   
+ 
+ 
+Notification 
+Service 
+API 
+Gateway   
+   
+, 
+ 
+Admin … 
+Queue 
+New Reservation 
+  
+- manage hotel rooms 
+  
+- search hotel 
+- book hotel 
+No Sql 
+DB 
+Comments 
+Service
+ 
+ AI Agent Hotel 
+Cache 
+IAM  ex. 
+Cognito authenticate 
+Group 2 – Create a job search web application 
+Create a job search site web application like kariyer.net that will have following use 
+cases/screens 
+ 
+ 
+ADMIN SERVICE 
+ 
+Authorized Admins and companies can add/update jobs 
+ 
+ 
+ 
+HOME PAGE 
+ 
+ 
+ 
+Son Aramalarim   
+Izmir – Web Developer – 
+Fulltime 
+Tum Turkiye – Full Stack 
+Developer 
+ 
+ 
+ 
+ 
+ 
+- Search capability by Position and City. Both textboxes will support autocomplete. City 
+search will show current city from browser location (or user citt (assume it is accessible) 
+- Show a list of at least 5 job postings on home page that are in the current city from 
+browser location. Show other postings if there are none available 
+- ‘Son Aramalarim’ will show the recent searches made by the user 
+- If not logged in, login will be visible at the header.  
+ 
+SEARCH RESULTS 
+ 
+ 
+- Should be filtrable by a pane on the left at least by country, city, town and working 
+preference 
+- Filters should be stated at the top of the list and can be deleted by an X if desired 
+ 
+ 
+  
+JOB POSTING DETAIL 
+ 
+ 
+ 
+Search results will show  
+- Job posting detail will at least have description and location of posting, last updated date 
+and number of applications 
+- On the right page, you will show at least 3 related postings that might interest the user 
+- Application (Başvur) button will be available. If user not logged in, user will be routed to 
+login page.  
+ 
+NOTIFICATION SERVICE 
+User can create Job Posting Alerts (Is Alarmi) to be notified when new jobs are posted.  
+ 
+- write a job alert notification scheduled task  
+o to go over new job postings from a queue 
+o go over all user job posting alerts 
+o send to users if there are eligible postings. 
+- Write a related job notification scheduled task 
+o To go over job searches a user makes from a job searches a user made and send 
+user notification about related job postings. Application will store job searches of 
+user in a separate No SQL DB 
+ 
+AI AGENT SERVICE 
+Implement AI agent chat window in main application screen that will use APIs you created to perform 
+search and apply  use cases 
+躽躾躿軀 You: I'd like to search web development jobs in Istanbul. 
+뱅뱆뱇뱈뱉뱊뱋뱌 AI: Got it! Here are a few options you might like 踘踚踛踜踙 
+謢謣謪謤謫謬謭謮謯謥謰謱謲謳謴謦謵謧謨謩 Junior web developer – Istanbul – Company 1 
+ Needs to be computer engineering graduate 
+ Need React and Angular skills 
+  [Apply] 
+謢謣謪謤謫謬謭謮謯謥謰謱謲謳謴謦謵謧謨謩 Frontend developer – Istanbul – Company 2 
+ Experienced in typescript  
+ Experience with Javascript components libraries 
+  [Apply] 
+ 
+뱅뱆뱇뱈뱉뱊뱋뱌 AI: Would you like to apply to any of these jobs? 
+꼑꼒 Yes, open details for Frontend developer – Istanbul – Company 2 
+ 
+NON-FUNCTIONAL REQUIREMENTS 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+- Job searches will be stored in a separate No SQL DB 
+- Job Postings will be stored in a separate distributed cache like Redis 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Admin Client   
+ Job Posting
+Service   
+-  Client   
+ 
+ 
+Notification 
+Service 
+API 
+Gateway   
+   
+, 
+ 
+Admin … 
+Queue 
+Job Postings 
+  
+- manage hotel rooms 
+  
+- search job 
+- apply job 
+  
+No Sql 
+DB 
+ AI Agent Job 
+Posting 
+Cache 
+Job Searches 
+  
+Job Search 
+Service 
+IAM Authenticate 
+  
+ 
+Students 
+ SILA BARIŞIK 
+ İSMET METE BAYKASOĞLU 
+ AYŞENUR TOMBUL 
+ ÖZGÜR CAN GÜNGÖR 
+ BERKER VERGİ 
+ SENA ASLI TÜRK 
+ EMRE AKAR 
+BEYZA TÜRK 
+ ÖMER FARUK AKKUŞ 
+ DİLARA KUYAR 
+ BAŞAK NUR KORKUT 
+ CANSU GÜN 
+ İPEK DEMİREL 
+MELİS BABACAN 
+YAGIZ YUNGUL 
+ 
+ 
+COMMON REQUIREMENTS 
+ 
+- Project can be built on any service-oriented framework as long as requirements are met.  
+- Simple UI implementation per mock-ups given above is required. Front end UIs do not 
+have to be same as shown above. It just needs to work 
+- All business use cases above must be available via REST webservices 
+- The project will be deployed to providers like Azure, Google Cloud, Vercel and AWS or 
+any other cloud vendor 
+- Per deployment diagrams above, Job Search, Hotel and Notification services will be 
+deployed separately. All APIs will be reached via an API gateway 
+- You can use RabbitMQ or Azure Messaging for queue solutions.  
+- All REST services must be versionable and support pagination when needed 
+- You can choose any development environment you like as long as they support REST 
+services and is deployable in cloud.  
+- For caching, you can user services like Redis or use in-memory-caching 
+- All user authentication will be stored in an IAM service like AWS Cognito, Firebase 
+Authentication or Supabase Auth. No external authentication like Google needed. Your 
+local authentication implementation will not be accepted 
+- For AI Agent, real time messaging IS NOT required 
+- You can make assumptions as long as you document them 
+- At least one distributed caching solution needs to be implemented i.e Hotel Details 
+- MAKE SURE TO CREATE A DOCKER FILE in your source. See an example at 
+https://www.digitalocean.com/community/tutorials/how-to-build-a-node-js-application-
+with-docker for a node.js application. DO NOT CREATE A DOCKER IMAGE FILE, it 
+would be too big and not needed 
+- DEPLOYMENT 
+o create a data model for each data source and use a DATABASE service from any 
+cloud service you like i.e Azure SQL Server, Azure Cosmos Table. SQLite is 
+NOT allowed 
+o For API and UI layer hosting of app services, use a cloud service i.e Azure App 
+Services 
+o For API gateway, you can use the gateway you implemented in assignment. 
+Azure API management is costly so refrain from using it unless you want to pay 
+for it 
+o For queue service, use Azure Message Queues, Rabbit MQ 
+o For scheduling services, use a cloud service i.e Azure App Logic or 
+https://cloud.google.com/scheduler/  
+ 
+DELIVERABLES 
+- Public Github repository link 
+- A README document in your GITHUB repository that has 
+o Final deployed urls of the application 
+o your design, assumptions, and issues you encountered.  
+o Data models (i.e an ER) 
+o Include a link to a short video (max 5 minutes) presenting your project.  
+ 

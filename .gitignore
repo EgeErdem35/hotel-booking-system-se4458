@@ -58,3 +58,4 @@ aws-credentials.json
 tmp/
 temp/
 .cache/
+codex-skills/

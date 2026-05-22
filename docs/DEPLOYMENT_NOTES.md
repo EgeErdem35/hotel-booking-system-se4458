@@ -188,7 +188,7 @@ Fill these before final submission:
 | Item | URL |
 | --- | --- |
 | Frontend deployed URL | `https://main.db41rjk85z4bx.amplifyapp.com/` |
-| API Gateway deployed URL | `TBD` |
+| API Gateway deployed URL | `http://api-gateway-service-env.eba-tbq9cyca.eu-north-1.elasticbeanstalk.com` |
 | Public GitHub repository | `https://github.com/EgeErdem35/hotel-booking-system-se4458` |
 | Demo video | `TBD` |
 | Supabase project dashboard | private, do not publish secrets |

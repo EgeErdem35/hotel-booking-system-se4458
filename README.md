@@ -11,7 +11,7 @@ Update these values after cloud deployment:
 | Component | URL |
 | --- | --- |
 | Frontend | `https://main.db41rjk85z4bx.amplifyapp.com/` |
-| API Gateway | `http://api-gateway-service-env.eba-tbq9cyca.eu-north-1.elasticbeanstalk.com` |
+| API Gateway | `https://0mb94xtp8g.execute-api.eu-north-1.amazonaws.com` |
 | Swagger / API Gateway | `http://api-gateway-service-env.eba-tbq9cyca.eu-north-1.elasticbeanstalk.com/swagger-ui.html` |
 | Demo video | `TBD` |
 | Public GitHub repository | `https://github.com/EgeErdem35/hotel-booking-system-se4458` |
@@ -212,3 +212,4 @@ On Windows PowerShell, `npm run build` may be blocked by script execution policy
 - Comments are intentionally stored in DynamoDB, not Supabase PostgreSQL.
 - The AI Agent requires `OPENAI_API_KEY` for OpenAI-generated replies; without it, the service still returns deterministic fallback replies based on project API calls.
 - The cloud deployment uses AWS Amplify for the frontend and AWS Elastic Beanstalk for the API Gateway and core services. Notification and AI Agent service code is included; if Elastic IP quota is limited, keep the API Gateway and core search/booking/comment services prioritized for the live demo.
+- The public frontend calls the backend through AWS API Gateway over HTTPS to avoid browser mixed-content blocking.

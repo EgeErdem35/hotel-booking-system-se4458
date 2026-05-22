@@ -6,5 +6,135 @@ services:
       - "5672:5672"
       - "15672:15672"
     environment:
-      RABBITMQ_DEFAULT_USER: guest
-      RABBITMQ_DEFAULT_PASS: guest
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER:-guest}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS:-guest}
+
+  api-gateway-service:
+    build:
+      context: ./api-gateway-service
+    ports:
+      - "8080:8080"
+    environment:
+      SERVER_PORT: 8080
+      FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:-http://localhost:3000}
+      HOTEL_ADMIN_SERVICE_URL: http://hotel-admin-service:8081
+      HOTEL_SEARCH_SERVICE_URL: http://hotel-search-service:8082
+      BOOKING_SERVICE_URL: http://booking-service:8083
+      COMMENTS_SERVICE_URL: http://comments-service:8084
+      NOTIFICATION_SERVICE_URL: http://notification-service:8085
+      AI_AGENT_SERVICE_URL: http://ai-agent-service:8086
+    depends_on:
+      - hotel-admin-service
+      - hotel-search-service
+      - booking-service
+      - comments-service
+      - notification-service
+      - ai-agent-service
+
+  hotel-admin-service:
+    build:
+      context: ./hotel-admin-service
+    ports:
+      - "8081:8081"
+    environment:
+      SERVER_PORT: 8081
+      SUPABASE_DB_URL: ${SUPABASE_DB_URL:-jdbc:postgresql://host.docker.internal:5432/hotel_booking}
+      SUPABASE_DB_USERNAME: ${SUPABASE_DB_USERNAME:-postgres}
+      SUPABASE_DB_PASSWORD: ${SUPABASE_DB_PASSWORD:-postgres}
+      SUPABASE_JWT_SECRET: ${SUPABASE_JWT_SECRET:-}
+      SUPABASE_PROJECT_URL: ${SUPABASE_PROJECT_URL:-}
+      HOTEL_IMAGE_UPLOAD_DIR: /app/uploads/hotel-images
+      MAX_IMAGE_UPLOAD_SIZE: ${MAX_IMAGE_UPLOAD_SIZE:-5MB}
+    volumes:
+      - hotel-admin-images:/app/uploads/hotel-images
+
+  hotel-search-service:
+    build:
+      context: ./hotel-search-service
+    ports:
+      - "8082:8082"
+    environment:
+      SERVER_PORT: 8082
+      SUPABASE_DB_URL: ${SUPABASE_DB_URL:-jdbc:postgresql://host.docker.internal:5432/hotel_booking}
+      SUPABASE_DB_USERNAME: ${SUPABASE_DB_USERNAME:-postgres}
+      SUPABASE_DB_PASSWORD: ${SUPABASE_DB_PASSWORD:-postgres}
+      SUPABASE_JWT_SECRET: ${SUPABASE_JWT_SECRET:-}
+      SUPABASE_PROJECT_URL: ${SUPABASE_PROJECT_URL:-}
+      UPSTASH_REDIS_REST_URL: ${UPSTASH_REDIS_REST_URL:-}
+      UPSTASH_REDIS_REST_TOKEN: ${UPSTASH_REDIS_REST_TOKEN:-}
+      HOTEL_DETAIL_CACHE_TTL_SECONDS: ${HOTEL_DETAIL_CACHE_TTL_SECONDS:-300}
+
+  booking-service:
+    build:
+      context: ./booking-service
+    ports:
+      - "8083:8083"
+    environment:
+      SERVER_PORT: 8083
+      SUPABASE_DB_URL: ${SUPABASE_DB_URL:-jdbc:postgresql://host.docker.internal:5432/hotel_booking}
+      SUPABASE_DB_USERNAME: ${SUPABASE_DB_USERNAME:-postgres}
+      SUPABASE_DB_PASSWORD: ${SUPABASE_DB_PASSWORD:-postgres}
+      RABBITMQ_URL: ${RABBITMQ_URL:-amqp://guest:guest@rabbitmq:5672}
+    depends_on:
+      - rabbitmq
+
+  comments-service:
+    build:
+      context: ./comments-service
+    ports:
+      - "8084:8084"
+    environment:
+      SERVER_PORT: 8084
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-}
+      AWS_REGION: ${AWS_REGION:-us-east-1}
+      DYNAMODB_COMMENTS_TABLE: ${DYNAMODB_COMMENTS_TABLE:-hotel_comments}
+
+  notification-service:
+    build:
+      context: ./notification-service
+    ports:
+      - "8085:8085"
+    environment:
+      SERVER_PORT: 8085
+      SUPABASE_DB_URL: ${SUPABASE_DB_URL:-jdbc:postgresql://host.docker.internal:5432/hotel_booking}
+      SUPABASE_DB_USERNAME: ${SUPABASE_DB_USERNAME:-postgres}
+      SUPABASE_DB_PASSWORD: ${SUPABASE_DB_PASSWORD:-postgres}
+      RABBITMQ_URL: ${RABBITMQ_URL:-amqp://guest:guest@rabbitmq:5672}
+      LOW_CAPACITY_THRESHOLD_PERCENT: ${LOW_CAPACITY_THRESHOLD_PERCENT:-20}
+    depends_on:
+      - rabbitmq
+
+  ai-agent-service:
+    build:
+      context: ./ai-agent-service
+    ports:
+      - "8086:8086"
+    environment:
+      SERVER_PORT: 8086
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4.1-mini}
+      OPENAI_BASE_URL: ${OPENAI_BASE_URL:-https://api.openai.com}
+      API_GATEWAY_URL: http://api-gateway-service:8080
+    depends_on:
+      - hotel-search-service
+      - booking-service
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:8080}
+        NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL:-}
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY:-}
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      HOSTNAME: 0.0.0.0
+    depends_on:
+      - api-gateway-service
+
+volumes:
+  hotel-admin-images:

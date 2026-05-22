@@ -4,6 +4,60 @@ server:
 spring:
   application:
     name: api-gateway-service
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins:
+              - ${FRONTEND_ORIGIN:http://localhost:3000}
+            allowed-methods:
+              - GET
+              - POST
+              - PUT
+              - PATCH
+              - DELETE
+              - OPTIONS
+            allowed-headers:
+              - Authorization
+              - Content-Type
+              - X-User-Id
+              - X-Requested-With
+            exposed-headers:
+              - Authorization
+              - X-User-Id
+            allow-credentials: true
+            max-age: 3600
+      routes:
+        - id: hotel-admin-service
+          uri: ${HOTEL_ADMIN_SERVICE_URL:http://localhost:8081}
+          predicates:
+            - Path=/api/v1/admin/**
+
+        - id: hotel-search-service
+          uri: ${HOTEL_SEARCH_SERVICE_URL:http://localhost:8082}
+          predicates:
+            - Path=/api/v1/hotels/**
+
+        - id: booking-service
+          uri: ${BOOKING_SERVICE_URL:http://localhost:8083}
+          predicates:
+            - Path=/api/v1/bookings/**
+
+        - id: comments-service
+          uri: ${COMMENTS_SERVICE_URL:http://localhost:8084}
+          predicates:
+            - Path=/api/v1/comments/**
+
+        - id: notification-service
+          uri: ${NOTIFICATION_SERVICE_URL:http://localhost:8085}
+          predicates:
+            - Path=/api/v1/notifications/**
+
+        - id: ai-agent-service
+          uri: ${AI_AGENT_SERVICE_URL:http://localhost:8086}
+          predicates:
+            - Path=/api/v1/ai/**
 
 app:
   services:

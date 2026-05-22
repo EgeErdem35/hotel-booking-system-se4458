@@ -14,3 +14,11 @@ management:
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
+
+app:
+  openai:
+    api-key: ${OPENAI_API_KEY:}
+    model: ${OPENAI_MODEL:gpt-4.1-mini}
+    base-url: ${OPENAI_BASE_URL:https://api.openai.com}
+  services:
+    api-gateway-url: ${API_GATEWAY_URL:http://localhost:8080}

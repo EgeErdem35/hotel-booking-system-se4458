@@ -11,7 +11,7 @@ The system allows:
 - Users to search hotels by destination, dates, and number of people.
 - Logged-in users to see discounted prices.
 - Users to book available rooms.
-- Users to view hotel comments, ratings, and rating distribution graphs.
+- Users to view hotel comments, ratings, and service-based rating distribution graphs.
 - A notification service to process reservation events and run nightly capacity checks.
 - An AI agent to help users search and book hotels through a chat interface.
 
@@ -23,53 +23,25 @@ This documentation is based on the SE4458 Final Project Group 1 requirements and
 
 ## 2. Confirmed Technology Stack
 
-### Frontend
+These technologies are our implementation choices for satisfying the PDF requirements. The PDF is the main source of truth; vendor choices such as Supabase, DynamoDB, Upstash, AWS, and CloudAMQP are project decisions.
 
-```text
-Next.js
-Tailwind CSS
-AWS Amplify
-Backend
-Java Spring Boot
-Maven
-REST APIs
-Swagger / OpenAPI
-AWS Elastic Beanstalk
-API Gateway
-Spring Cloud Gateway
-Authentication / IAM
-Supabase Auth
-JWT-based authentication
-Main Relational Database
-Supabase PostgreSQL
-NoSQL Database for Comments
-AWS DynamoDB
-Distributed Cache
-Upstash Redis
-Queue / Messaging
-RabbitMQ
+- Frontend: Next.js, Tailwind CSS, AWS Amplify
+- Backend: Java Spring Boot, Maven, REST APIs, Swagger / OpenAPI
+- API Gateway: Spring Cloud Gateway
+- Authentication / IAM: Supabase Auth, JWT-based authentication
+- Main relational database: Supabase PostgreSQL
+- NoSQL database for comments: AWS DynamoDB
+- Distributed cache: Upstash Redis
+- Queue / messaging: RabbitMQ locally with Docker, CloudAMQP in cloud
+- Scheduled task: Spring Boot `@Scheduled` inside `notification-service`
+- AI Agent: OpenAI API
+- Development environment: VS Code, Codex, GitHub
 
-Local:
-Docker RabbitMQ
-
-Cloud:
-CloudAMQP
-Scheduled Task
-Spring Boot @Scheduled
-Inside notification-service
-AI Agent
-OpenAI API
-API Documentation
-Swagger / OpenAPI
-springdoc-openapi
-Development Environment
-VS Code
-Codex 5.5
-GitHub
-3. Architecture Overview
+## 3. Architecture Overview
 
 The system will be developed as a monorepo.
 
+```text
 hotel-booking-system-se4458/
   frontend/
   api-gateway-service/
@@ -84,8 +56,11 @@ hotel-booking-system-se4458/
   README.md
   PROJECT_DOCUMENTATION.md
   .gitignore
-4. Service Responsibilities
-4.1 Frontend
+```
+
+## 4. Service Responsibilities
+
+### 4.1 Frontend
 Folder:
 frontend/
 
@@ -967,7 +942,7 @@ Requirements:
 The following assumptions are made:
 
 - Payment transaction is not implemented because it is not required.
-- Image upload is optional and may be skipped.
+- Admin hotel image upload is implemented as an optional enhancement. It uses a separate multipart endpoint and keeps existing hotel create/update JSON requests unchanged.
 - Notification sending can be simulated by storing notification records or logging messages.
 - Supabase Auth user IDs are used as user identifiers in backend services.
 - Admin role is checked through the hotel_admins table.
@@ -986,6 +961,13 @@ Final deliverables:
 - Issues encountered
 - Data models / ER diagram
 - Short video link, maximum 5 minutes
+
+Repository delivery files:
+
+- `README.md` includes final URL placeholders, local run instructions, environment variables, and implemented feature summary.
+- `docs/DEPLOYMENT_NOTES.md` documents Docker Compose usage, cloud deployment mapping, required environment variables, and verification checklist.
+- `docs/ER_DIAGRAM.md` contains the Supabase PostgreSQL ER diagram plus DynamoDB, Redis, and RabbitMQ data models.
+- `docs/VIDEO_SCRIPT.md` contains the under-5-minute demo video flow.
 18. Minimum Viable Product Plan
 
 First working MVP:

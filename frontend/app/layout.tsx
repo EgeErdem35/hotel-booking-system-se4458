@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Hotel Booking System",
-  description: "SE4458 Hotel Booking System frontend placeholder",
+  description: "Hotel search and reservation frontend for SE4458",
 };
 
 export default function RootLayout({

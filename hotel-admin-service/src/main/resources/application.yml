@@ -4,6 +4,19 @@ server:
 spring:
   application:
     name: hotel-admin-service
+  datasource:
+    url: ${SUPABASE_DB_URL:jdbc:postgresql://localhost:5432/hotel_booking}
+    username: ${SUPABASE_DB_USERNAME:postgres}
+    password: ${SUPABASE_DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: ${DB_MAX_POOL_SIZE:2}
+      minimum-idle: ${DB_MIN_IDLE:0}
+      connection-timeout: ${DB_CONNECTION_TIMEOUT_MS:30000}
+  servlet:
+    multipart:
+      max-file-size: ${MAX_IMAGE_UPLOAD_SIZE:5MB}
+      max-request-size: ${MAX_IMAGE_UPLOAD_SIZE:5MB}
 
 management:
   endpoints:
@@ -14,3 +27,11 @@ management:
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
+
+app:
+  auth:
+    jwt-secret: ${SUPABASE_JWT_SECRET:}
+    issuer: ${SUPABASE_AUTH_ISSUER:${SUPABASE_PROJECT_URL:}/auth/v1}
+    jwks-url: ${SUPABASE_JWKS_URL:${SUPABASE_PROJECT_URL:}/auth/v1/.well-known/jwks.json}
+  upload:
+    hotel-images-dir: ${HOTEL_IMAGE_UPLOAD_DIR:uploads/hotel-images}

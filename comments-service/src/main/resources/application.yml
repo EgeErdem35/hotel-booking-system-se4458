@@ -5,6 +5,14 @@ spring:
   application:
     name: comments-service
 
+app:
+  aws:
+    region: ${AWS_REGION:eu-west-1}
+    access-key-id: ${AWS_ACCESS_KEY_ID:}
+    secret-access-key: ${AWS_SECRET_ACCESS_KEY:}
+  dynamodb:
+    comments-table: ${DYNAMODB_COMMENTS_TABLE:hotel_comments}
+
 management:
   endpoints:
     web:

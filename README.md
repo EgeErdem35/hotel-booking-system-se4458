@@ -10,7 +10,7 @@ Update these values after cloud deployment:
 
 | Component | URL |
 | --- | --- |
-| Frontend | `TBD` |
+| Frontend | `https://main.db41rjk85z4bx.amplifyapp.com/` |
 | API Gateway | `TBD` |
 | Swagger / API Gateway | `TBD/swagger-ui.html` |
 | Demo video | `TBD` |

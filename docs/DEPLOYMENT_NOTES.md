@@ -187,7 +187,7 @@ Fill these before final submission:
 
 | Item | URL |
 | --- | --- |
-| Frontend deployed URL | `TBD` |
+| Frontend deployed URL | `https://main.db41rjk85z4bx.amplifyapp.com/` |
 | API Gateway deployed URL | `TBD` |
 | Public GitHub repository | `https://github.com/EgeErdem35/hotel-booking-system-se4458` |
 | Demo video | `TBD` |
